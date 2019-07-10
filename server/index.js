@@ -12,13 +12,13 @@ const server = app.listen(3000, function () {
 
 // set up our socket control center
 const io = socketio(server)
-io.on('connection', socket => {
-	console.log(`A socket connection to the server has been made: ${socket.id}`)
+// io.on('connection', socket => {
+// 	console.log(`A socket connection to the server has been made: ${socket.id}`)
 
-	socket.on('disconnect', () => {
-	  console.log(`Connection ${socket.id} has left the building`)
-	})
-})
+// 	socket.on('disconnect', () => {
+// 	  console.log(`Connection ${socket.id} has left the building`)
+// 	})
+// })
 
 app.use(morgan('dev'))
 app.use(helmet())
@@ -57,124 +57,127 @@ function reset() {
   player = 'red'
 }
 
-function checkVictory(i, j) {
-  const c = board[i][j]
+// function checkVictory(i, j) {
+//   const c = board[i][j]
 
-  // Check horizontally
-  let count = 0
-  // count to the left
-  for (let k = 1; k < 4; ++k) {
-    if (j - k < 0) {
-      break
-    }
-    if (board[i][j - k] !== c) {
-      break
-    }
-    count++
-  }
-  // count to the right
-  for (let k = 1; k < 4; ++k) {
-    if (j + k > 7) {
-      break
-    }
-    if (board[i][j + k] !== c) {
-      break
-    }
-    count++
-  }
+//   // Check horizontally
+//   let count = 0
+//   // count to the left
+//   for (let k = 1; k < 4; ++k) {
+//     if (j - k < 0) {
+//       break
+//     }
+//     if (board[i][j - k] !== c) {
+//       break
+//     }
+//     count++
+//   }
+//   // count to the right
+//   for (let k = 1; k < 4; ++k) {
+//     if (j + k > 7) {
+//       break
+//     }
+//     if (board[i][j + k] !== c) {
+//       break
+//     }
+//     count++
+//   }
 
-  if (count > 2) {
-    return true
-  }
+//   if (count > 2) {
+//     return true
+//   }
 
 
-  // Check vertically
-  count = 0
-  // count up
-  for (let k = 1; k < 4; ++k) {
-    if (i - k < 0) {
-      break
-    }
-    if (board[i - k][j] !== c) {
-      break
-    }
-    count++
-  }
-  // count down
-  for (let k = 1; k < 4; ++k) {
-    if (i + k > 5) {
-      break
-    }
-    if (board[i + k][j] !== c) {
-      break
-    }
-    count++
-  }
+//   // Check vertically
+//   count = 0
+//   // count up
+//   for (let k = 1; k < 4; ++k) {
+//     if (i - k < 0) {
+//       break
+//     }
+//     if (board[i - k][j] !== c) {
+//       break
+//     }
+//     count++
+//   }
+//   // count down
+//   for (let k = 1; k < 4; ++k) {
+//     if (i + k > 5) {
+//       break
+//     }
+//     if (board[i + k][j] !== c) {
+//       break
+//     }
+//     count++
+//   }
 
-  if (count > 2) {
-    return true
-  }
+//   if (count > 2) {
+//     return true
+//   }
 
-  // Check diagonal top-left -> bottom-right
-  count = 0
-  // count to top-left
-  for (let k = 1; k < 4; ++k) {
-    if (i - k < 0 || j - k < 0) {
-      break
-    }
-    if (board[i - k][j - k] !== c) {
-      break
-    }
-    count++
-  }
-  // count to bottom-right
-  for (let k = 1; k < 4; ++k) {
-    if (i + k > 5 || j + k > 7) {
-      break
-    }
-    if (board[i + k][j + k] !== c) {
-      break
-    }
-    count++
-  }
+//   // Check diagonal top-left -> bottom-right
+//   count = 0
+//   // count to top-left
+//   for (let k = 1; k < 4; ++k) {
+//     if (i - k < 0 || j - k < 0) {
+//       break
+//     }
+//     if (board[i - k][j - k] !== c) {
+//       break
+//     }
+//     count++
+//   }
+//   // count to bottom-right
+//   for (let k = 1; k < 4; ++k) {
+//     if (i + k > 5 || j + k > 7) {
+//       break
+//     }
+//     if (board[i + k][j + k] !== c) {
+//       break
+//     }
+//     count++
+//   }
 
-  if (count > 2) {
-    return true
-  }
+//   if (count > 2) {
+//     return true
+//   }
 
-  // Check diagonal bottom-left -> top-right
-  count = 0
-  // count to bottom-left
-  for (let k = 1; k < 4; ++k) {
-    if (i + k > 5 || j - k < 0) {
-      break
-    }
-    if (board[i + k][j - k] !== c) {
-      break
-    }
-    count++
-  }
-  // count to top-right
-  for (let k = 1; k < 4; ++k) {
-    if (i - k < 0 || j + k > 7) {
-      break
-    }
-    if (board[i - k][j + k] !== c) {
-      break
-    }
-    count++
-  }
+//   // Check diagonal bottom-left -> top-right
+//   count = 0
+//   // count to bottom-left
+//   for (let k = 1; k < 4; ++k) {
+//     if (i + k > 5 || j - k < 0) {
+//       break
+//     }
+//     if (board[i + k][j - k] !== c) {
+//       break
+//     }
+//     count++
+//   }
+//   // count to top-right
+//   for (let k = 1; k < 4; ++k) {
+//     if (i - k < 0 || j + k > 7) {
+//       break
+//     }
+//     if (board[i - k][j + k] !== c) {
+//       break
+//     }
+//     count++
+//   }
 
-  return count > 2
-}
+//   return count > 2
+// }
 
 
 io.on('connection', function (socket) {
+	console.log(`A socket connection to the server has been made: ${socket.id}`)
   if (players['red'] == null) {
-    players['red'] = socket
+  	console.log("RED PLAYER HAS ARRIVED")
+    players['red'] = socket.id
     socket.emit('color', 'red')
   } else if (players['yellow'] == null) {
-    players['yellow'] = socket
+  	console.log("YELLOW PLAYER HAS ARRIVED")
+    players['yellow'] = socket.id
     socket.emit('color', 'yellow')
     io.emit('turn', 'red')
   } else {
@@ -182,14 +185,19 @@ io.on('connection', function (socket) {
   }
 
   socket.on('disconnect', function () {
-    if (players['red'] === socket) {
+  	console.log(`Connection ${socket.id} has left the building`)
+    if (players['red'] === socket.id) {
+    	console.log('RED left..........')
       players['red'] = null
-    } else if (players['yellow'] === socket) {
+    } else if (players['yellow'] === socket.id) {
+    	console.log('YELLOW left..........')
       players['yellow'] = null
     }
   })
+	console.log('MEET THE PLAYERS: RED ->> ', players['red'], ' vs yellow ->> ', players['yellow'])
 
   socket.on('click', function (column) {
+  	console.log('THERE WAS A CLICK AHHHHHHHH')
     // Ignore players clicking when it's not their turn
     if (players[player] !== socket) {
       console.log('click from wrong player: ' + player === 'red' ? 'yellow' : 'red')
@@ -219,15 +227,15 @@ io.on('connection', function (socket) {
 
     io.emit('board', board)
 
-    // Check victory (only current player can win)
-    if (checkVictory(row, column)) {
-      io.emit('victory', player)
-      // Disconnect players
-      players['red'].disconnect()
-      players['yellow'].disconnect()
-      reset()
-      return
-    }
+    // // Check victory (only current player can win)
+    // if (checkVictory(row, column)) {
+    //   io.emit('victory', player)
+    //   // Disconnect players
+    //   players['red'].disconnect()
+    //   players['yellow'].disconnect()
+    //   reset()
+    //   return
+    // }
 
     // Toggle the player
     player = player === 'red' ? 'yellow' : 'red'
@@ -236,4 +244,4 @@ io.on('connection', function (socket) {
 })
 
 
-reset()
+// reset()
