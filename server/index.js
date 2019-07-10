@@ -4,6 +4,21 @@ const morgan = require('morgan')
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const path = require('path')
+const socketio = require('socket.io');
+
+const server = app.listen(3000, function () {
+    console.log('The server is listening on port 3000!');
+});
+
+// set up our socket control center
+const io = socketio(server)
+io.on('connection', socket => {
+	console.log(`A socket connection to the server has been made: ${socket.id}`)
+
+	socket.on('disconnect', () => {
+	  console.log(`Connection ${socket.id} has left the building`)
+	})
+})
 
 app.use(morgan('dev'))
 app.use(helmet())
@@ -30,9 +45,16 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500).send(err.message || 'Internal server error.')
 })
 
-const port = process.env.PORT || 3000 // this can be very useful if you deploy to Heroku!
-app.listen(port, function() {
-  console.log('Knock, knock')
-  console.log("Who's there?")
-  console.log(`Your server, listening on port ${port}`)
-})
+//IO STUFF STARTS HERE
+// let board = null
+// const players = {'red': null, 'yellow': null}
+// let player = 'red'
+
+// function reset() {
+//   board = Array(6).fill(0).map(x => Array(8).fill('white'))
+//   players['red'] = null
+//   players['yellow'] = null
+//   player = 'red'
+// }
+
+// reset()

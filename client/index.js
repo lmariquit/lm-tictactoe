@@ -5,6 +5,9 @@ import { BrowserRouter as Router } from 'react-router-dom'
 
 import App from './components/App.js'
 
+// establishes socket connection
+import './socket'
+
 ReactDOM.render(
   <Router>
     <App />
